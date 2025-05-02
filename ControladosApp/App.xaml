@@ -1,0 +1,46 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ControladosApp"
+             x:Class="ControladosApp.App">
+    
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    
+
+    <!--
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="BackgroundAppColor">#DBE8C5</Color>
+            <Color x:Key="PrimaryButtonColor">#00554c</Color>
+            <Color x:Key="PrimaryButtonTextColor">White</Color>
+
+
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="{StaticResource BackgroundAppColor}" />
+            </Style>
+
+
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryButtonColor}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryButtonTextColor}" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryButtonColor}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+    -->
+</Application>

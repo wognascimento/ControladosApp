@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             xmlns:converters="clr-namespace:ControladosApp.Converters"
+             xmlns:models="clr-namespace:ControladosApp.Models"
+             x:Class="ControladosApp.Views.QRScannerPage"
+             x:Name="RootPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UltimoQRCodeBackgroundConverter x:Key="UltimoQRCodeBackgroundConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:Name="MainGrid">
+
+        <!-- POR PADRÃO: layout para smartphone (linhas) -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- SCANNER -->
+        <zxing:CameraBarcodeReaderView 
+            x:Name="cameraView"
+            IsDetecting="True"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Grid.Row="0"
+            Grid.Column="0"
+            BarcodesDetected="OnBarcodesDetected" />
+
+        <!-- LISTA + CONTADOR -->
+        <Grid Grid.Row="1" Grid.Column="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label x:Name="CapturasLabel"
+                   Text="Capturados: 0"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,10,0,5"
+                   Grid.Row="0" />
+
+            <CollectionView 
+                x:Name="QRCodeList"
+                ItemsSource="{Binding QRCodeCapturados}"
+                Grid.Row="1"
+                Margin="10"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:QRCodeItem">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem 
+                                        Text="Excluir"
+                                        BackgroundColor="Red"
+                                        IconImageSource="trash.png" 
+                                        Invoked="OnDeleteSwipe"
+                                        CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <!-- Conteúdo do item -->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{Binding Barcode}" 
+                                       FontSize="14"
+                                       Padding="5"
+                                       Margin="2"
+                                       BackgroundColor="{Binding IsUltimo, Converter={StaticResource UltimoQRCodeBackgroundConverter}}" />
+
+                                <BoxView 
+                                    Grid.Row="1"
+                                    HeightRequest="1"
+                                    BackgroundColor="LightGray"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <!-- BOTÃO FLUTUANTE -->
+        <Button x:Name="FinalizarButton"
+                Text="✓"
+                WidthRequest="60"
+                HeightRequest="60"
+                CornerRadius="30"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontSize="24"
+                Padding="0"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="20"
+                Clicked="OnFinalizarClicked"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="1" />
+
+        <ActivityIndicator x:Name="EnvioIndicator"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="#00554C"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,70"/>
+
+        <!-- ADAPTIVIDADE -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="AdaptiveStates">
+                    <VisualState x:Name="DefaultState" />
+                    <VisualState x:Name="Wide">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="720" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="MainGrid" Property="Grid.RowDefinitions">
+                                <Setter.Value>
+                                    <RowDefinitionCollection>
+                                        <RowDefinition Height="*" />
+                                    </RowDefinitionCollection>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="MainGrid" Property="Grid.ColumnDefinitions">
+                                <Setter.Value>
+                                    <ColumnDefinitionCollection>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="*" />
+                                    </ColumnDefinitionCollection>
+                                </Setter.Value>
+                            </Setter>
+
+                            <!-- Scanner vai para coluna 0 -->
+                            <Setter TargetName="cameraView" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="cameraView" Property="Grid.Column" Value="0" />
+
+                            <!-- Lista vai para coluna 1 -->
+                            <Setter TargetName="QRCodeList" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="QRCodeList" Property="Grid.Column" Value="1" />
+
+                            <!-- Botão continua na mesma coluna -->
+                            <Setter TargetName="FinalizarButton" Property="Grid.ColumnSpan" Value="2" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </VisualStateManager.VisualStateGroups>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ControladosApp.MainPage"
+             Title="Menu Principal">
+
+    <VerticalStackLayout Padding="30" Spacing="20">
+        <Label Text="Controle de QR Code" 
+               FontSize="24"
+               HorizontalOptions="Center" />
+
+        <Button Text="Saída" 
+                Clicked="OnSaidaClicked" 
+                HorizontalOptions="Center" 
+                WidthRequest="200" />
+
+        <Button Text="Entrada" 
+                Clicked="OnEntradaClicked" 
+                HorizontalOptions="Center" 
+                WidthRequest="200" />
+
+        <Button Text="Sincronizar Coletas"
+                Clicked="AbrirSyncPage"
+                HorizontalOptions="Center" 
+                WidthRequest="200"/>
+    </VerticalStackLayout>
+
+</ContentPage>
