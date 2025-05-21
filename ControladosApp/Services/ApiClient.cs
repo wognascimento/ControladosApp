@@ -69,24 +69,24 @@ public static class ApiClient
 
             var resultado = JsonSerializer.Deserialize<ApiResponse>(body);
 
-            if (response.IsSuccessStatusCode && resultado?.Sucesso == true)
+            if (response.IsSuccessStatusCode && resultado?.sucesso == true)
             {
                 await Database.MarcarRequisicoesComoSincronizadas(requisicoes);
             }
 
             return resultado ?? new ApiResponse
             {
-                Sucesso = false,
-                Erro = "Resposta nula da API."
+                sucesso = false,
+                erro = "Resposta nula da API."
             };
         }
         catch (Exception ex)
         {
             return new ApiResponse
             {
-                Sucesso = false,
-                Erro = "Erro ao enviar requisições.",
-                Mensagem = ex.Message
+                sucesso = false,
+                erro = "Erro ao enviar requisições.",
+                mensagem = ex.Message
             };
         }
     }
@@ -103,20 +103,20 @@ public static class ApiClient
             var body = await response.Content.ReadAsStringAsync();
             var resultado = JsonSerializer.Deserialize<ApiResponse>(body);
 
-            if (response.IsSuccessStatusCode && resultado?.Sucesso == true)
+            if (response.IsSuccessStatusCode && resultado?.sucesso == true)
             {
                 await Database.MarcarEntradasComoSincronizadas(entradas);
             }
 
-            return resultado ?? new ApiResponse { Sucesso = false, Erro = "Resposta nula da API." };
+            return resultado ?? new ApiResponse { sucesso = false, erro = "Resposta nula da API." };
         }
         catch (Exception ex)
         {
             return new ApiResponse
             {
-                Sucesso = false,
-                Erro = "Erro ao enviar entradas.",
-                Mensagem = ex.Message
+                sucesso = false,
+                erro = "Erro ao enviar entradas.",
+                mensagem = ex.Message
             };
         }
     }

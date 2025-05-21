@@ -2,10 +2,10 @@
 
 public class ApiResponse
 {
-    public bool Sucesso { get; set; }
-    public int? Inseridos { get; set; }
-    public string Erro { get; set; }
-    public string Codigo { get; set; }
-    public string Mensagem { get; set; }
-    public string Onde { get; set; }
+    public bool sucesso { get; set; }
+    public int? inseridos { get; set; }
+    public string erro { get; set; }
+    public string codigo { get; set; }
+    public string mensagem { get; set; }
+    public string onde { get; set; }
 }

@@ -169,14 +169,14 @@ public partial class QRScannerPage : ContentPage
         EnvioIndicator.IsVisible = false;
         FinalizarButton.IsEnabled = true;
 
-        if (resultado is not null && resultado.Sucesso)
+        if (resultado is not null && resultado.sucesso)
         {
-            await Snackbar.Make($"Coletas enviadas com sucesso! Inseridos: {resultado.Inseridos}", null, "", TimeSpan.FromSeconds(3)).Show();
+            await Snackbar.Make($"Coletas enviadas com sucesso! Inseridos: {resultado.inseridos}", null, "", TimeSpan.FromSeconds(3)).Show();
             await Navigation.PopAsync();
         }
         else
         {
-            string mensagem = resultado?.Mensagem ?? resultado?.Erro ?? "Erro desconhecido.";
+            string mensagem = resultado?.mensagem ?? resultado?.erro ?? "Erro desconhecido.";
             await Snackbar.Make($"Erro: {mensagem}", null, "", TimeSpan.FromSeconds(3)).Show();
         }
     }
@@ -194,14 +194,14 @@ public partial class QRScannerPage : ContentPage
 
             var resultado = await ApiClient.EnviarEntradasAsync(entradas); // você cria esse método
 
-            if (resultado.Sucesso)
+            if (resultado.sucesso)
             {
-                await DisplayAlert("Sucesso", $"Entradas enviadas: {resultado.Inseridos}", "OK");
+                await DisplayAlert("Sucesso", $"Entradas enviadas: {resultado.inseridos}", "OK");
                 QRCodeCapturados.Clear(); // limpa lista da sessão
             }
             else
             {
-                await DisplayAlert("Erro", resultado.Mensagem ?? resultado.Erro ?? "Erro desconhecido", "Fechar");
+                await DisplayAlert("Erro", resultado.mensagem ?? resultado.erro ?? "Erro desconhecido", "Fechar");
             }
         }
         else
@@ -215,14 +215,14 @@ public partial class QRScannerPage : ContentPage
 
             var resultado = await ApiClient.EnviarRequisicoesAsync(requisicoes); // já existe
 
-            if (resultado.Sucesso)
+            if (resultado.sucesso)
             {
-                await DisplayAlert("Sucesso", $"Requisições enviadas: {resultado.Inseridos}", "OK");
+                await DisplayAlert("Sucesso", $"Requisições enviadas: {resultado.inseridos}", "OK");
                 QRCodeCapturados.Clear(); // limpa lista da sessão
             }
             else
             {
-                await DisplayAlert("Erro", resultado.Mensagem ?? resultado.Erro ?? "Erro desconhecido", "Fechar");
+                await DisplayAlert("Erro", resultado.mensagem ?? resultado.erro ?? "Erro desconhecido", "Fechar");
             }
         }
     }

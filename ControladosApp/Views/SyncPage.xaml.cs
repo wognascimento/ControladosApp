@@ -51,24 +51,24 @@ public partial class SyncPage : ContentPage
         if (entradas.Any())
         {
             var resultadoEntradas = await ApiClient.EnviarEntradasAsync(entradas);
-            if (resultadoEntradas?.Sucesso == true)
-                mensagens.Add($"Entradas sincronizadas: {resultadoEntradas.Inseridos}");
+            if (resultadoEntradas?.sucesso == true)
+                mensagens.Add($"Entradas sincronizadas: {resultadoEntradas.inseridos}");
             else
             {
                 falhou = true;
-                mensagens.Add($"Erro em entradas: {resultadoEntradas?.Mensagem ?? resultadoEntradas?.Erro ?? "Erro desconhecido"}");
+                mensagens.Add($"Erro em entradas: {resultadoEntradas?.mensagem ?? resultadoEntradas?.erro ?? "Erro desconhecido"}");
             }
         }
 
         if (requisicoes.Any())
         {
             var resultadoRequisicoes = await ApiClient.EnviarRequisicoesAsync(requisicoes);
-            if (resultadoRequisicoes?.Sucesso == true)
-                mensagens.Add($"Requisições sincronizadas: {resultadoRequisicoes.Inseridos}");
+            if (resultadoRequisicoes?.sucesso == true)
+                mensagens.Add($"Requisições sincronizadas: {resultadoRequisicoes.inseridos}");
             else
             {
                 falhou = true;
-                mensagens.Add($"Erro em requisições: {resultadoRequisicoes?.Mensagem ?? resultadoRequisicoes?.Erro ?? "Erro desconhecido"}");
+                mensagens.Add($"Erro em requisições: {resultadoRequisicoes?.mensagem ?? resultadoRequisicoes?.erro ?? "Erro desconhecido"}");
             }
         }
 

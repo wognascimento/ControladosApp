@@ -33,15 +33,15 @@ public partial class SaidaPage : ContentPage
         var lista = await Database.GetRequisicoes();
         var resultado = await ApiClient.EnviarRequisicoesAsync(lista);
 
-        if (resultado.Sucesso)
+        if (resultado.sucesso)
         {
-            await DisplayAlert("Enviado!", $"Inseridos: {resultado.Inseridos ?? 0}", "OK");
+            await DisplayAlert("Enviado!", $"Inseridos: {resultado.inseridos ?? 0}", "OK");
             //  Deleta os que foram enviados
             await Database.DeletarRequisicoesAsync(lista);
         }
         else
         {
-            await DisplayAlert("Erro ao enviar", resultado.Mensagem ?? resultado.Erro ?? "Erro desconhecido", "Fechar");
+            await DisplayAlert("Erro ao enviar", resultado.mensagem ?? resultado.erro ?? "Erro desconhecido", "Fechar");
         }
     }
     

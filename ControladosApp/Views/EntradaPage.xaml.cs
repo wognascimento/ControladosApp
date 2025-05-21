@@ -25,15 +25,15 @@ public partial class EntradaPage : ContentPage
         var lista = await Database.GetEntradas();
         var resultado = await ApiClient.EnviarEntradasAsync(lista);
 
-        if (resultado.Sucesso)
+        if (resultado.sucesso)
         {
-            await DisplayAlert("Enviado!", $"Inseridos: {resultado.Inseridos ?? 0}", "OK");
+            await DisplayAlert("Enviado!", $"Inseridos: {resultado.inseridos ?? 0}", "OK");
             // Deleta os que foram enviados
             await Database.DeletarEntradasAsync(lista);
         }
         else
         {
-            await DisplayAlert("Erro ao enviar", resultado.Mensagem ?? resultado.Erro ?? "Erro desconhecido", "Fechar");
+            await DisplayAlert("Erro ao enviar", resultado.mensagem ?? resultado.erro ?? "Erro desconhecido", "Fechar");
         }
     }
    
